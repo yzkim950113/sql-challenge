@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block title %}SQL 챌린지 - 홈{% endblock %} {%
+block content %}
+<div class="max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold text-center mb-8">SQL 챌린지 진행 현황</h1>
+
+  <div class="grid gap-6">
+    {% for round in rounds %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">{{ round.number }}회차</h2>
+          <div class="flex items-center space-x-2">
+            {% if round.status == 'active' %}
+            <span
+              class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm"
+              >진행 중</span
+            >
+            {% elif round.status == 'locked' %}
+            <span
+              class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm"
+              >잠김</span
+            >
+            {% else %}
+            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm"
+              >종료됨</span
+            >
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-2 mb-4 text-sm text-gray-600">
+          <div>시작: {{ round.start_date.strftime('%Y-%m-%d %H:%M') }}</div>
+          <div>종료: {{ round.end_date.strftime('%Y-%m-%d %H:%M') }}</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            {% set progress = (round.solved / round.problems * 100) if
+            round.problems > 0 else 0 %}
+            <div
+              class="bg-blue-600 h-2.5 rounded-full"
+              style="width: {{ progress }}%"
+            ></div>
+          </div>
+          <div class="text-sm text-gray-600 mt-2">
+            진행률: {{ round.solved }}/{{ round.problems }} 문제 해결
+          </div>
+        </div>
+
+        <div class="flex justify-end">
+          {% if round.status != 'locked' %}
+          <a
+            href="{{ url_for('view_round', round_id=round.id) }}"
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200"
+          >
+            문제 풀기
+          </a>
+          {% else %}
+          <button
+            disabled
+            class="px-4 py-2 bg-gray-300 text-gray-500 rounded cursor-not-allowed"
+          >
+            잠김
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

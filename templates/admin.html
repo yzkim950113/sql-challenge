@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}SQL 챌린지 - 관리자 페이지{% endblock
+%} {% block content %}
+<div class="max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold mb-8">참여자 진행 현황</h1>
+
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full">
+        <thead class="bg-gray-50">
+          <tr>
+            <th
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              사용자 ID
+            </th>
+            {% for round_num in range(1, 8) %}
+            <th
+              class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              {{ round_num }}회차
+            </th>
+            {% endfor %}
+            <th
+              class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              총 해결
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          {% for user in users %}
+          <tr class="{% if loop.index % 2 == 0 %}bg-gray-50{% endif %}">
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+            >
+              {{ user.id }}
+            </td>
+            {% for round_num in range(1, 8) %}
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+              {% if user.progress[round_num] %}
+              <span class="text-green-600 font-medium"
+                >{{ user.progress[round_num] }}/3</span
+              >
+              {% else %}
+              <span class="text-gray-400">0/3</span>
+              {% endif %}
+            </td>
+            {% endfor %}
+            <td
+              class="px-6 py-4 whitespace-nowrap text-sm text-center font-bold"
+            >
+              {{ user.total }}/21
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "question": "다음은 직원 정보가 담긴 테이블입니다. 테이블 이름은 `employees`이며, 월급이 5000 이상인 직원의 이름과 월급을 출력하세요.",
+    "solution": "SELECT name, salary FROM employees WHERE salary >= 5000;",
+    "test_data": {
+      "columns": ["id", "name", "salary"],
+      "data": [
+        [1, "Alice", 6000],
+        [2, "Bob", 4000],
+        [3, "Charlie", 7000]
+      ]
+    },
+    "schema": [
+      { "name": "id", "type": "INTEGER" },
+      { "name": "name", "type": "TEXT" },
+      { "name": "salary", "type": "INTEGER" }
+    ],
+    "expected_result": [
+      ["Alice", 6000],
+      ["Charlie", 7000]
+    ]
+  }
+]
