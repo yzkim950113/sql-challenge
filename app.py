@@ -549,7 +549,7 @@ def init_db():
     ''')
     
     # 초기 데이터 생성 - 2025년 1월 20일부터 시작
-    start_date = datetime(2025, 1, 10, 0, 0, 0)  # 1월 20일 00:00:00
+    start_date = datetime(2025, 1, 20, 0, 0, 0)  # 1월 20일 00:00:00
     
     # 7회차 생성
     for i in range(7):
@@ -928,4 +928,4 @@ def admin_check():
 
 if __name__ == '__main__':
     init_db()
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=5000)
